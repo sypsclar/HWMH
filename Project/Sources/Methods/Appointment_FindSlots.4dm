@@ -1,7 +1,7 @@
 //%attributes = {}
 // Appointment_FindSlots ( UUID_MedicalStaff; UUID_MedicalHouse; UUID_Person; UUID_ConsultationKind ; options)
 // possible options : duration:integer, delay, integer, nbSlots, integer, date : date, dontMoveDate : boolean
-#DECLARE ($UUID_MedicalStaff : Text; $UUID_MedicalHouse : Text; $UUID_Person : Text; $UUID_ConsultationKind : Text; $options : Object)->$slots : Collection
+#DECLARE($UUID_MedicalStaff : Text; $UUID_MedicalHouse : Text; $UUID_Person : Text; $UUID_ConsultationKind : Text; $options : Object)->$slots : Collection
 
 
 var $eMedicalCapabilities : cs:C1710.MedicalCapabilityEntity
@@ -51,13 +51,13 @@ If ($esMedicalCapabilities.length>0)
 				$to:=$from+86400
 				$esAppointmentForTheDay:=$esAppointmentForTarget.query("startStmp >= :1 & startStmp < :2"; $from; $to)
 				$appointments:=New collection:C1472
-				For each ($eAppointmentForTheDay; $esAppointmentForTheDay)
-					$appointment:=New object:C1471
-					$appointment.date:=sfw_stmp_read_date($eAppointmentForTheDay.startStmp)
-					$appointment.time:=sfw_stmp_read_time($eAppointmentForTheDay.startStmp)
-					$appointment.duration:=$eAppointmentForTheDay.duration
-					$appointments.push($appointment)
-				End for each 
+				//For each ($eAppointmentForTheDay; $esAppointmentForTheDay)
+				//$appointment:=New object
+				//$appointment.date:=sfw_stmp_read_date($eAppointmentForTheDay.startStmp)
+				//$appointment.time:=sfw_stmp_read_time($eAppointmentForTheDay.startStmp)
+				//$appointment.duration:=$eAppointmentForTheDay.duration
+				//$appointments.push($appointment)
+				//End for each 
 				$quarters:=sfw_quarters_fillWWorkingRanges($workingRanges; $appointments)
 				$max:=sfw_schedule_getMaxIRQuarters($quarters)
 				If ($max>=($duration/900))
